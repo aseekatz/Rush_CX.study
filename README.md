@@ -4,6 +4,9 @@
 
 This repository includes processed sequence files, raw data files, sequence processing steps, and code used in the manuscript: "Gut microbiota and clinical features distinguish *Klebsiella pneumoniae* carbapenemase-producing *Klebsiella pneumoniae* colonization at the time of admission to a long-term acute care hospital", 2018 (submitted), authored by Anna M. Seekatz, Christine Bassis, Louis Fogg, Nicholas M Moore, Yoona Rhee, Karen Lolans, Robert A Weinstein, Michael Y Lin, Vincent B Young, Mary K Hayden, and for the Centers for Disease Control and Prevention Epicenters Program.
 
+#### Importance:
+We identified fecal microbiota features that distinguished *Klebsiella pneumoniae* carbapanemase-producing *K. pneumoniae* colonized and non-colonized patients who were newly admitted to a long-term acute care hospital. These features may warrant further investigation as candidates for inclusion in microbiome disruption indices.
+
 #### Abstract:
 
 **Background:** Identification of gut microbiota features associated with antibiotic-resistant bacterial colonization may reveal new infection prevention targets.
