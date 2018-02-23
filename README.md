@@ -27,7 +27,7 @@ Anna M. Seekatz, Christine Bassis, and Louis Fogg contributed to this code. Plea
 **Code:** Code for figures 2-4 in manuscript.
 
 **Data:** Data files generated from R code:
-	- mothur-generated files
-	- LEfSe input/output files (also ran with mothur)
+- mothur-generated files
+- LEfSe input/output files (also ran with mothur)
 
 **Figures:** Figures and supplementary files included in manuscript.
