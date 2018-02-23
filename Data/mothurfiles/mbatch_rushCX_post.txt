@@ -1,0 +1,72 @@
+## All Rush CX samples: ran after break (prior to break=commands ran for full data set)
+# 171 samples total
+# 9.6.16
+
+## all these were the steps used for ALL samples (to keep them consistent):
+#make.contigs(file=rushfinal.files, processors=8)
+#summary.seqs(fasta=rushfinal.trim.contigs.fasta, processors=8)
+#screen.seqs(fasta=rushfinal.trim.contigs.fasta, group=rushfinal.contigs.groups, maxambig=0, maxlength=275, processors=8)
+#unique.seqs(fasta=rushfinal.trim.contigs.good.fasta)
+#count.seqs(name=rushfinal.trim.contigs.good.names, group=rushfinal.contigs.good.groups)
+#summary.seqs(count=rushfinal.trim.contigs.good.count_table, processors=8)
+#pcr.seqs(fasta=silva.seed_v119.align, start=11894, end=25319, keepdots=F, processors=8)
+#system(mv silva.seed_v119.pcr.align silva.v4.fasta)
+#summary.seqs(fasta=silva.v4.fasta, processors=8)
+#align.seqs(fasta=rushfinal.trim.contigs.good.unique.fasta, reference=silva.v4.fasta, processors=8)
+#summary.seqs(fasta=rushfinal.trim.contigs.good.unique.align, count=rushfinal.trim.contigs.good.count_table, processors=8)
+#screen.seqs(fasta=rushfinal.trim.contigs.good.unique.align, count=rushfinal.trim.contigs.good.count_table, summary=rushfinal.trim.contigs.good.unique.#summary, start=1968, end=11550, maxhomop=8, processors=8)
+#summary.seqs(fasta=current, count=current, processors=8)
+#filter.seqs(fasta=rushfinal.trim.contigs.good.unique.good.align, vertical=T, trump=., processors=8)
+#unique.seqs(fasta=rushfinal.trim.contigs.good.unique.good.filter.fasta, count=rushfinal.trim.contigs.good.good.count_table)
+#pre.cluster(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.fasta, count=rushfinal.trim.contigs.good.unique.good.filter.count_table, diffs=2, processors=8)
+#chimera.uchime(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t, processors=8)
+#remove.seqs(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.accnos)
+#summary.seqs(fasta=current, count=current, processors=8)
+#classify.seqs(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=trainset10_082014.rdp.fasta, taxonomy=trainset10_082014.rdp.tax, cutoff=80)
+#remove.lineage(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, taxonomy=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)
+#count.seqs(name=current, group=current)
+#count.groups(count=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table)
+
+##remove.groups(count=current, fasta=current, taxonomy=current, groups=)		# not done at this step
+#cluster.split(fasta=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, count=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, taxonomy=rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.taxonomy, splitmethod=classify, taxlevel=6, cutoff=0.15, processors=1)
+#system(mv rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.an.unique_list.list rushfinal.final.list)
+#system(mv rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta rushfinal.final.fasta)
+#system(mv rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.taxonomy rushfinal.final.taxonomy)
+#system(mv rushfinal.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table rushfinal.final.count_table)
+
+#count.groups(count=rushfinal.final.count_table)
+#make.shared(list=rushfinal.final.list, count=rushfinal.final.count_table, label=0.03)
+#system(mv rushfinal.final.shared rushfinal.final.03.shared)
+#make.shared(list=rushfinal.final.list, count=rushfinal.final.count_table, label=0.02)
+#system(mv rushfinal.final.shared rushfinal.final.02.shared)
+#classify.otu(list=rushfinal.final.list, count=rushfinal.final.count_table, taxonomy=rushfinal.final.taxonomy, label=0.03)
+#classify.otu(list=rushfinal.final.list, count=rushfinal.final.count_table, taxonomy=rushfinal.final.taxonomy, label=0.02)
+##remove.groups(count=rushfinal.final.count_table, fasta=rushfinal.final.fasta, taxonomy=rushfinal.final.taxonomy, list=rushfinal.final.list, shared=rushfinal.final.shared, groups=)
+	# did not do the remove groups (yet)
+	
+#-----#
+
+#### for samples in CX study:
+# .03 shared file:
+#get.groups(shared=rushfinal.final.03.shared, groups=LGT_926-LGT_02262-LGT_02338-LGT_02339-LGT_02422-LGT_02424-LGT_02770-f28-f30-f34-f35-f38-f43-f44-f50-f51-f55-f58-f60-f62-f63-f64-f65-f66-f68-f69-f70-f71-f72-f73-f74-f75-f77-f89-f91-f95-f97-f102-f103-f104-f106-f114-f118-f122-f123-f124-f125-f14_128_fecal-f132-f135-f150-f157-f165-f168-f169-f172-f174-f176-f177-f178-f180-f181-f183-f184-f185-f187-f191-f197-f198-f219-f220-f221-f223-f230-f233-f14_235_fecal-f14_236_fecal-f14_245_fecal-f14_248_fecal-f14_276_fecal-f14_277_fecal-f14_286_fecal-f14_291_fecal-f14_292_fecal-f14_293_fecal-F298-f14_299_fecal-f14_300_fecal-f14_301_fecal-f14_303_fecal-f14_304_fecal-f14_305_fecal-F307-F308-f14_309_fecal-f14_310_fecal-f14_313_fecal-s14_315-s14_318-s14_319-s14_321-s14_322-s14_326-s14_327-s14_329-s14_332-s14_338-s14_339-s14_348-s14_349-s14_350-s14_357-s14_359-s14_360-s14_361-s14_362-s14_363-s14_367-s14_368-s14_376-f14_390-f14_392-f14_395-f14_399-f14_400-f14_401-f14_403-f14_404-f14_409-f14_419-f14_420-f14_421-f14_430-f14_433-f14_437-f14_448-f14_449-f14_452-f14_459-f14_460-f14_462-f14_466-f14_468-f14_470-f14_472-f14_473-f14_475-f14_478-f14_479-f14_480-f14_481-f14_482-f14_483-f14_491-f14_492-f14_494-f14_495-f14_496-f14_00499-f14_509-f14_511-f14_512-f14_515-f14_546-f14_547-f14_551-f14_559-f14_560-s14_00592-s14_00593-s14_00594)
+#count.groups(shared=rushfinal.final.03.0.03.pick.shared)
+	# remove groups <5000:
+#remove.groups(shared=rushfinal.final.03.0.03.pick.shared, groups=s14_319-s14_349-f65-f150-f14_401-f14_395-f14_304_fecal-f135)
+#system(mv rushfinal.final.03.0.03.pick.0.03.pick.shared rushfinal.CXsamples.0.03.shared)
+dist.shared(shared=rushfinal.CXsamples.0.03.shared, calc=thetayc-jclass-jest, subsample=T, iters=5000)
+pcoa(phylip=rushfinal.CXsamples.0.03.thetayc.0.03.lt.dist)
+nmds(phylip=rushfinal.CXsamples.0.03.thetayc.0.03.lt.dist, mindim=3, maxdim=3)
+summary.shared(shared=rushfinal.CXsamples.0.03.shared, calc=sharedsobs-braycurtis-spearman-thetayc-jsd-sharednseqs)
+summary.single(shared=rushfinal.CXsamples.0.03.shared, calc=simpsoneven-simpson-invsimpson-shannon-npshannon-sobs-chao-nseqs)
+#filter.shared(shared=rushfinal.CXsamples.0.03.shared, minpercentsamples=5, makerare=T, minpercent=0.0001)
+
+
+#-----# 
+# 8.31.17
+# took rushfinal.CXsamples.0.03.shared file and tested how to get a proper summary file
+# mbatch_rushCX_post2.txt
+summary.shared(shared=rushfinal.CXsamples.0.03.shared, calc=sharedsobs-braycurtis-spearman-thetayc-jsd-sharednseqs)
+	# this produced a more manageable file!
+	
+
+

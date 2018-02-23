@@ -1,0 +1,82 @@
+ ##  Permutation of effect sizes  
+ ##  Prepare by reading the dummy coded presence data into mb1
+ ##  mb1 is a 301 by 171 matrix with dummy coded calibrate or validate in column 1
+ ##  and dummy coded presence/absence of OTUs in columns 2-301
+
+## this is the read command for the sample database from SPSS
+
+library(foreign, pos=14)
+mb1 <- 
+  read.spss("H:/lou/LOU/Mary_hayden/methods paper data analysis 1000816/reanalysis_120316/permutation analysis in R/meta_subset_data_recoded_122216.sav",
+   use.value.labels=TRUE, max.value.labels=Inf, to.data.frame=TRUE)
+colnames(mb1) <- tolower(colnames(mb1))
+
+
+  ##  Initialize I and the permutations matrix
+
+i <- 1
+perms<-matrix(data=0,73,100)
+
+  ##  Create labels and a matrix form for mb1 which is now called mb2
+
+labels<-names(mb1)
+mb2<-as.matrix(mb1)
+    
+repeat {## Step 1--generate the 100 permutations of val/cal
+x<- rbinom(73,1,.5)
+perms[,i]<-x
+i<-i+1
+if (i > 100) break}
+
+  ## Create the destination matrices for the effect sizes (risk ratios)
+
+esv<-matrix(data=0,nrow=241,ncol=101)
+esc<-matrix(data=0,nrow=241,ncol=101)
+
+  ## concatenating the permutations matrix with mb2 (the matrix of dummy coded microbiome densities)
+
+mb3<-cbind(perms,mb2)
+
+  ## reinitialize my indices so that I can estimate risk ratios for the 100 permutation vectors
+
+i<-1
+perm_num<-1
+otu_num<-104
+
+
+
+repeat {## Step 2--generate the 100 permutations of the 241 risk ratios for the val/cal otus
+single_otu<-cbind(mb3[,perm_num],mb3[,otu_num])
+
+
+  ## Estimating risk ratios using the xtabs function which divies two dummy codes into four cell frequencies
+
+
+otu_mat<-xtabs(~single_otu[,2]+single_otu[,1])
+if (nrow(otu_mat)==4) arv<-(otu_mat[1,1]/(otu_mat[1,1]+otu_mat[3,1]))
+if (nrow(otu_mat)==4) arc<-(otu_mat[1,2]/(otu_mat[1,2]+otu_mat[3,2]))
+if (nrow(otu_mat)==4) prc<-(otu_mat[2,2]/(otu_mat[4,2]+otu_mat[2,2]))
+if (nrow(otu_mat)==4) prv<-(otu_mat[2,1]/(otu_mat[2,1]+otu_mat[4,1]))
+if (nrow(otu_mat)==4) rrc<-prc/arc
+if (nrow(otu_mat)==4) rrv<-prv/arv
+
+  ## fill the output matrices -- row 4 is selected above and below because this is where xtabs puts the relevant cell information
+
+if (nrow(otu_mat)==4) esv[i,perm_num]<-rrv
+if (nrow(otu_mat)==4) esc[i,perm_num]<-rrc
+
+  ## move the indices up until the number of the permutation reaches 100. 
+
+i<-i+1
+otu_num<-otu_num+1
+if (i > 241) perm_num<-perm_num+1
+if (i > 241) otu_num<-102
+if (i > 241) i<-1
+if (perm_num > 101) break }
+
+  ##writing to disk
+
+
+write.table(esv,"H:/lou/LOU/Mary_hayden/methods paper data analysis 1000816/reanalysis_120316/permutation analysis in R/final_paper_021117/esv1c.txt")
+write.table(esc,"H:/lou/LOU/Mary_hayden/methods paper data analysis 1000816/reanalysis_120316/permutation analysis in R/final_paper_021117/esc1c.txt")
+
