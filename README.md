@@ -29,5 +29,9 @@ Anna M. Seekatz, Christine Bassis, and Louis Fogg contributed to this code. Plea
 **Data:** Data files generated from R code:
 - mothur-generated files
 - LEfSe input/output files (also ran with mothur)
+  - note: email for larger files: 
+    - rushfinal.final.list 
+    - rushfinal.trim.contigs.good.unique.good.filter.unique.fasta
+    - rushfinal.final.0.03.fasta
 
 **Figures:** Figures and supplementary files included in manuscript.
